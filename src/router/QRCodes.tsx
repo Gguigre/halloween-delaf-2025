@@ -10,7 +10,7 @@ export const QRCodes = () => {
         {ghosts.map((ghostId) => (
           <QRCodeSVG
             key={ghostId}
-            value={`${window.location.origin}/ghost/${ghostId}`}
+            value={`${window.location.origin}${window.location.pathname}/#/ghost/${ghostId}`}
             size={150}
             bgColor={"#ffffff"}
             fgColor={"#000000"}
@@ -23,7 +23,7 @@ export const QRCodes = () => {
         {enigmas.map((enigma) => (
           <QRCodeSVG
             key={enigma.id}
-            value={`${window.location.origin}/enigma/${enigma.id}`}
+            value={`${window.location.origin}${window.location.pathname}/#/enigma/${enigma.id}`}
             size={150}
             bgColor={"#ffffff"}
             fgColor={"#000000"}
