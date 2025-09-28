@@ -53,13 +53,10 @@ export const useEnigma = (enigmaId?: string) => {
   const markAsSolved = (user: UserDTO) => {
     if (!isValidEnigma) return false;
 
-    const userEnigma = user.enigmas.find((e) => e.id === enigmaId);
-    if (!userEnigma) return false;
-
     setDoc(doc(firestore, FirebaseCollections.USERS, user.id), {
       ...user,
       enigmas: user.enigmas.map((e) =>
-        e.id === enigmaId ? { ...e, solved: true } : e
+        e.id === enigmaId ? { ...e, solved: true, found: true } : e
       ),
     });
 
