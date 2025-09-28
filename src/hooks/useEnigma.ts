@@ -4,7 +4,7 @@ import { FirebaseCollections, useFirebase } from "./useFirebase";
 import { type UserDTO } from "./useUser";
 import { logEvent } from "firebase/analytics";
 
-export const POINTS_PER_ENIGMA = 25;
+export const POINTS_PER_ENIGMA = 10;
 
 export type EnigmaDTO = {
   id: string;
