@@ -3,6 +3,7 @@ import { FloatingGhost } from "../components/FloatingGhost";
 import { useGhost } from "../hooks/useGhost";
 import { useUser } from "../hooks/useUser";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 export const Ghost = () => {
   const { user, isLoading } = useUser();
@@ -14,6 +15,8 @@ export const Ghost = () => {
       markAsFound(user);
     }
   }, [markAsFound, user]);
+
+  console.log({ isValidGhost, ghostId, user });
 
   const loading = isLoading || !user;
   if (loading) {
@@ -35,8 +38,8 @@ export const Ghost = () => {
       <h2>Tu as trouvé un fantôme !</h2>
       <FloatingGhost sizeFactor={3} />
       <p>
-        Tu peux accéder au <a href="/leaderboard">classement en cliquant ici</a>
-        .
+        Tu peux accéder au{" "}
+        <Link to="/leaderboard">classement en cliquant ici</Link>.
       </p>
     </div>
   );
@@ -63,8 +66,8 @@ const GhostAlreadyFound = () => {
       <h2>Tu as déjà trouvé ce fantôme !</h2>
       <FloatingGhost sizeFactor={3} />
       <p>
-        Tu peux accéder au <a href="/leaderboard">classement en cliquant ici</a>
-        .
+        Tu peux accéder au{" "}
+        <Link to="/leaderboard">classement en cliquant ici</Link>.
       </p>
     </div>
   );

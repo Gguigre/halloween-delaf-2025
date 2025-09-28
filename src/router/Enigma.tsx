@@ -4,6 +4,7 @@ import { FloatingGhost } from "../components/FloatingGhost";
 import { useEnigma, type Enigma } from "../hooks/useEnigma";
 import { useUser } from "../hooks/useUser";
 import { Riddle } from "../components/Riddle";
+import { Link } from "react-router-dom";
 
 export const EnigmaScreen = () => {
   const { user, isLoading } = useUser();
@@ -68,8 +69,8 @@ const EnigmaAlreadySolved = () => {
       <h2>Tu as déjà répondu à cette énigme !</h2>
       <FloatingGhost sizeFactor={2} />
       <p>
-        Tu peux accéder au <a href="/leaderboard">classement en cliquant ici</a>
-        .
+        Tu peux accéder au{" "}
+        <Link to="/leaderboard">classement en cliquant ici</Link>.
       </p>
     </div>
   );
@@ -88,8 +89,8 @@ const EnigmaAlreadyFoundButNotSolved = ({
       <p>Tu as déjà trouvé ce fantôme mais…</p>
       <Riddle enigma={enigma} onSolved={onSolved} />
       <p>
-        Tu peux accéder au <a href="/leaderboard">classement en cliquant ici</a>
-        .
+        Tu peux accéder au{" "}
+        <Link to="/leaderboard">classement en cliquant ici</Link>.
       </p>
     </div>
   );
@@ -111,8 +112,8 @@ const EnigmaNeverFound = ({
       <Riddle enigma={enigma} onSolved={onSolved} />
 
       <p>
-        Tu peux accéder au <a href="/leaderboard">classement en cliquant ici</a>
-        .
+        Tu peux accéder au{" "}
+        <Link to="/leaderboard">classement en cliquant ici</Link>.
       </p>
     </div>
   );

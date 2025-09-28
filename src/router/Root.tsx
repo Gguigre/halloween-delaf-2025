@@ -1,6 +1,7 @@
 import "./root.css";
 import { useUser } from "../hooks/useUser";
 import { FloatingGhost } from "../components/FloatingGhost";
+import { Link } from "react-router-dom";
 
 export const Root = () => {
   useUser();
@@ -18,7 +19,7 @@ export const Root = () => {
       </p>
       <p>
         <span>
-          Tu peux accéder au <a href="/leaderboard">classement ici</a>.
+          Tu peux accéder au <Link to="/leaderboard">classement ici</Link>.
         </span>
       </p>
       <FloatingGhost sizeFactor={2} />
