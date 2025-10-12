@@ -1,7 +1,7 @@
 import { doc, setDoc } from "@firebase/firestore";
 import enigmas from "../assets/enigmas.json";
 import { FirebaseCollections, useFirebase } from "./useFirebase";
-import { type UserDTO } from "./useUser";
+import { useUser, type UserDTO } from "./useUser";
 import { logEvent } from "firebase/analytics";
 
 export const POINTS_PER_ENIGMA = 10;
@@ -23,8 +23,11 @@ export const useEnigma = (enigmaId?: string) => {
   const isValidEnigma = !!enigma;
   const { firestore, analytics } = useFirebase();
 
-  const markAsFound = (user: UserDTO) => {
+  const { user } = useUser();
+
+  const markAsFound = () => {
     if (!isValidEnigma) return false;
+    if (!user) return false;
 
     const userEnigma = user.enigmas.find((e) => e.id === enigmaId);
     if (userEnigma) return false;
@@ -50,9 +53,17 @@ export const useEnigma = (enigmaId?: string) => {
     return true;
   };
 
-  const markAsSolved = (user: UserDTO) => {
+  const markAsSolved = () => {
     if (!isValidEnigma) return false;
+    if (!user) return false;
 
+    console.log(
+      "Marking enigma as solved",
+      enigmaId,
+      "for user",
+      user.id,
+      user
+    );
     setDoc(doc(firestore, FirebaseCollections.USERS, user.id), {
       ...user,
       enigmas: user.enigmas.map((e) =>
