@@ -12,9 +12,7 @@ export const EnigmaScreen = () => {
   const { enigma, markAsFound, markAsSolved } = useEnigma(enigmaId);
 
   useEffect(() => {
-    if (user) {
-      markAsFound(user);
-    }
+    markAsFound();
   }, [markAsFound, user]);
 
   const loading = isLoading || !user;
@@ -25,10 +23,6 @@ export const EnigmaScreen = () => {
   if (!enigma || !enigmaId) {
     return <EnigmaNotFound />;
   }
-
-  const onSolved = () => {
-    markAsSolved(user);
-  };
 
   const isAlreadyFound = user.enigmas.some((e) => e.id === enigmaId && e.found);
   const isAlreadySolved = user.enigmas.some(
@@ -41,11 +35,11 @@ export const EnigmaScreen = () => {
 
   if (isAlreadyFound && !isAlreadySolved) {
     return (
-      <EnigmaAlreadyFoundButNotSolved enigma={enigma} onSolved={onSolved} />
+      <EnigmaAlreadyFoundButNotSolved enigma={enigma} onSolved={markAsSolved} />
     );
   }
 
-  return <EnigmaNeverFound enigma={enigma} onSolved={onSolved} />;
+  return <EnigmaNeverFound enigma={enigma} onSolved={markAsSolved} />;
 };
 
 const EnigmaNotFound = () => {

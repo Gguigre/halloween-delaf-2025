@@ -1,8 +1,8 @@
 import { doc, setDoc } from "@firebase/firestore";
+import { logEvent } from "firebase/analytics";
 import enigmas from "../assets/enigmas.json";
 import { FirebaseCollections, useFirebase } from "./useFirebase";
-import { useUser, type UserDTO } from "./useUser";
-import { logEvent } from "firebase/analytics";
+import { useUser } from "./useUser";
 
 export const POINTS_PER_ENIGMA = 10;
 
