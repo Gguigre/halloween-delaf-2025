@@ -34,11 +34,15 @@ export const useUser = () => {
     let userName = localStorage.getItem("userName");
     if (!userName) {
       while (!userName) {
+        console.log("No user name, prompting...");
         userName = prompt("Enter your name")?.trim() || "";
       }
+      console.log("Saving to local storage", userName);
       const userId = uuidv4();
       localStorage.setItem("userName", userName);
       localStorage.setItem("userId", userId);
+
+      console.log("Creating new user in Firestore", userId);
       const newUser = doc(firestore, FirebaseCollections.USERS, userId);
       await setDoc(newUser, { name: userName, ghosts: [], enigmas: [] });
 
@@ -47,13 +51,15 @@ export const useUser = () => {
         user_id: userId,
       });
     }
+
+    console.log("Fetching user from Firestore", userName);
     const users = await getDocs(
       collection(firestore, FirebaseCollections.USERS)
     );
     const userDoc = users.docs.find((doc) => doc.data().name === userName);
     if (userDoc) {
-      console.log(userDoc);
       setUser({ id: userDoc.id, ...userDoc.data() } as UserDTO);
+      console.log("User fetched from Firestore", userDoc.id, userDoc.data());
     }
     setIsLoading(false);
   }, [firestore, analytics]);
