@@ -13,11 +13,9 @@ export const Riddle = ({
   const [isCorrect, setIsCorrect] = useState<boolean | undefined>(undefined);
 
   const validateAnswer = () => {
-    const longestWord = answer
-      .split(" ")
-      .sort((w1, w2) => w2.length - w1.length)[0];
+    const words = answer.split(/ |'/).sort((w1, w2) => w2.length - w1.length);
 
-    if (sanitize(longestWord) === sanitize(enigma.answer)) {
+    if (words.some((word) => sanitize(word) === sanitize(enigma.answer))) {
       setIsCorrect(true);
       onSolved();
     } else {
