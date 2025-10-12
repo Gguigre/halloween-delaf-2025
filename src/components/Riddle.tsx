@@ -29,7 +29,7 @@ export const Riddle = ({
     <div>
       <p>Répond à cette énigme pour gagner des points supplémentaires !</p>
       <h2>
-        🎃 <em>{enigma.question}</em> 🎃
+        🎃 <em dangerouslySetInnerHTML={{ __html: enigma.question }} /> 🎃
       </h2>
       {isCorrect === true && <p>✅ Bravo, c'est la bonne réponse !</p>}
       {isCorrect === false && <p>❌ Oups, ce n'est pas la bonne réponse.</p>}
