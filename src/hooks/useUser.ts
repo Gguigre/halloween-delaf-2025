@@ -68,5 +68,5 @@ export const useUser = () => {
     fetchUser();
   }, [fetchUser]);
 
-  return { isLoading, user };
+  return { isLoading, user, setUser };
 };

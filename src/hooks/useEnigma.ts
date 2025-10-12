@@ -23,7 +23,7 @@ export const useEnigma = (enigmaId?: string) => {
   const isValidEnigma = !!enigma;
   const { firestore, analytics } = useFirebase();
 
-  const { user } = useUser();
+  const { user, setUser } = useUser();
 
   const markAsFound = () => {
     if (!isValidEnigma) return false;
@@ -32,7 +32,7 @@ export const useEnigma = (enigmaId?: string) => {
     const userEnigma = user.enigmas.find((e) => e.id === enigmaId);
     if (userEnigma) return false;
 
-    setDoc(doc(firestore, FirebaseCollections.USERS, user.id), {
+    const newUser = {
       ...user,
       enigmas: [
         ...user.enigmas,
@@ -42,7 +42,10 @@ export const useEnigma = (enigmaId?: string) => {
           solved: false,
         },
       ],
-    });
+    };
+
+    setDoc(doc(firestore, FirebaseCollections.USERS, user.id), newUser);
+    setUser(newUser);
 
     logEvent(analytics, "enigma_found", {
       user_name: user.name,
@@ -64,12 +67,16 @@ export const useEnigma = (enigmaId?: string) => {
       user.id,
       user
     );
-    setDoc(doc(firestore, FirebaseCollections.USERS, user.id), {
+
+    const newUser = {
       ...user,
       enigmas: user.enigmas.map((e) =>
         e.id === enigmaId ? { ...e, solved: true, found: true } : e
       ),
-    });
+    };
+
+    setDoc(doc(firestore, FirebaseCollections.USERS, user.id), newUser);
+    setUser(newUser);
 
     logEvent(analytics, "enigma_solved", {
       user_name: user.name,
