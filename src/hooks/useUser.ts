@@ -65,7 +65,7 @@ export const useUser = () => {
     const CGUStatus = localStorage.getItem("CGUStatus");
     if (!CGUStatus) {
       let CGUPass = null;
-      while (CGUPass !== PASS) {
+      while (CGUPass?.trim() !== PASS) {
         CGUPass = prompt(
           "👻 Les fantômes tolèrent les chasseurs... respectueux.\n" +
             `Pour éviter leur colère, écris : "${PASS}"\n\n` +
