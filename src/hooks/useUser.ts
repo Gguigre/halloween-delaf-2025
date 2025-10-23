@@ -34,15 +34,12 @@ export const useUser = () => {
     let userName = localStorage.getItem("userName");
     if (!userName) {
       while (!userName) {
-        console.log("No user name, prompting...");
         userName = prompt("Enter your name")?.trim() || "";
       }
-      console.log("Saving to local storage", userName);
       const userId = uuidv4();
       localStorage.setItem("userName", userName);
       localStorage.setItem("userId", userId);
 
-      console.log("Creating new user in Firestore", userId);
       const newUser = doc(firestore, FirebaseCollections.USERS, userId);
       await setDoc(newUser, { name: userName, ghosts: [], enigmas: [] });
 
