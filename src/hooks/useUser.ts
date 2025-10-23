@@ -49,21 +49,37 @@ export const useUser = () => {
       });
     }
 
-    console.log("Fetching user from Firestore", userName);
     const users = await getDocs(
       collection(firestore, FirebaseCollections.USERS)
     );
     const userDoc = users.docs.find((doc) => doc.data().name === userName);
     if (userDoc) {
       setUser({ id: userDoc.id, ...userDoc.data() } as UserDTO);
-      console.log("User fetched from Firestore", userDoc.id, userDoc.data());
     }
     setIsLoading(false);
   }, [firestore, analytics]);
 
+  const PASS = "Je promets de ne pas toucher aux fantômes";
+
+  const promptCGU = useCallback(() => {
+    const CGUStatus = localStorage.getItem("CGUStatus");
+    if (!CGUStatus) {
+      let CGUPass = null;
+      while (CGUPass !== PASS) {
+        CGUPass = prompt(
+          "👻 Les fantômes tolèrent les chasseurs... respectueux.\n" +
+            `Pour éviter leur colère, écris : "${PASS}"\n\n` +
+            "Ne les arrache pas, ne les déplace… ou ils se vengeront. 😈\n\n"
+        );
+      }
+      localStorage.setItem("CGUStatus", "agreed");
+    }
+  }, []);
+
   useEffect(() => {
+    promptCGU();
     fetchUser();
-  }, [fetchUser]);
+  }, [fetchUser, promptCGU]);
 
   return { isLoading, user, setUser };
 };
