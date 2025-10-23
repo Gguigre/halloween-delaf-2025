@@ -69,7 +69,7 @@ export const useUser = () => {
         CGUPass = prompt(
           "👻 Les fantômes tolèrent les chasseurs... respectueux.\n" +
             `Pour éviter leur colère, écris : "${PASS}"\n\n` +
-            "Ne les arrache pas, ne les déplace… ou ils se vengeront. 😈\n\n"
+            "Ne les arrache pas, ne les déplace pas… ou ils se vengeront. 😈\n\n"
         );
       }
       localStorage.setItem("CGUStatus", "agreed");
