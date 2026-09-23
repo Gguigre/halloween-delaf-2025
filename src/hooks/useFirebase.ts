@@ -21,11 +21,10 @@ export const FirebaseCollections = {
   USERS: "Users",
 };
 
-export const useFirebase = () => {
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-  const firestore = getFirestore(app);
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const firestore = getFirestore(app);
 
+export const useFirebase = () => {
   return { analytics, firestore };
 };

@@ -15,7 +15,7 @@ const router = createHashRouter([
     errorElement: <Root />,
   },
   {
-    path: "enigma/:enigmaId",
+    path: "/enigma/:enigmaId",
     element: <EnigmaScreen />,
   },
   {
